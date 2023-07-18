@@ -2,7 +2,9 @@ package br.com.lis2b.igorviagens.igorviagensbff.application.api;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.lis2b.igorviagens.voos.infra.FlightOfferResponse;
@@ -23,9 +25,11 @@ public class VooResponse {
 	}	
 
 	public static List<VooResponse> convert(FlightOfferResponse voosBusca) {
-		return voosBusca.getData().stream()
-		.map(VooResponse::new)
-		.collect(Collectors.toList());
+		return Optional.ofNullable(voosBusca)
+				.map(FlightOfferResponse::getData)
+				.orElse(new ArrayList<>()).stream()
+				.map(VooResponse::new)
+				.collect(Collectors.toList());
 	}
 
     @Getter
