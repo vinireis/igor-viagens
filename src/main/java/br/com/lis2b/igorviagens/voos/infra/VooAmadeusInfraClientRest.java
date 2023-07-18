@@ -29,7 +29,6 @@ public class VooAmadeusInfraClientRest implements VooClientRest {
 
 	private FlightOfferResponse getFlightOfferResponse(ViagemCotacaoRequest cotacaoRequest) {
 		FlightOfferResponse response = vooClient.buscaVoos(
-				AUTHORIZATION_HEADER,
 				cotacaoRequest.getCodigoOrigem(),
 				cotacaoRequest.getCodigoDestino(),
 				cotacaoRequest.getDataIda(),
@@ -40,7 +39,5 @@ public class VooAmadeusInfraClientRest implements VooClientRest {
 				MAX_RESULTS);
 		return response;
 	}
-
-	private static final String AUTHORIZATION_HEADER = "Bearer qFhrpbxyk6Xax57WAb4R5fNQ9Cv9";
 	private static final Integer MAX_RESULTS = 10;
 }
