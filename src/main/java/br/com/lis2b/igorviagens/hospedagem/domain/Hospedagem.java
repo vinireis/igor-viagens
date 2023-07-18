@@ -10,23 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @ToString
+@Builder
 public class Hospedagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "uuid", name = "idHospedagem", updatable = false, unique = true, nullable = false)
-	private UUID idHospedagem;
+	private UUID id;
 	private String localizacao;
 	private LocalDateTime checkin;
 	private LocalDateTime checkout;
 	private String hotel;
 	private BigDecimal precoTotal;
-
 }

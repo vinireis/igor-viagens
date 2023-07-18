@@ -16,17 +16,28 @@ public class VooAmadeusInfraClientRest implements VooClientRest {
 	@Override
 	public FlightOfferResponse buscaVoos(ViagemCotacaoRequest cotacaoRequest) {
 		log.info("[start] VooAmadeusInfraClientRest - buscarVoos");
+		try {
+			FlightOfferResponse response = getFlightOfferResponse(cotacaoRequest);
+			log.info("[finish] VooAmadeusInfraClientRest - buscarVoos");
+			return response;
+		} catch (Exception e) {
+			log.error("[ERROR] VooAmadeusInfraClientRest - buscarVoos",e);
+			log.info("[finish] VooAmadeusInfraClientRest - buscarVoos");
+			return null;
+		}
+	}
+
+	private FlightOfferResponse getFlightOfferResponse(ViagemCotacaoRequest cotacaoRequest) {
 		FlightOfferResponse response = vooClient.buscaVoos(
-				AUTHORIZATION_HEADER, 
+				AUTHORIZATION_HEADER,
 				cotacaoRequest.getCodigoOrigem(),
-				cotacaoRequest.getCodigoDestino(), 
-				cotacaoRequest.getDataIda(), 
-				cotacaoRequest.getDataVolta(), 
+				cotacaoRequest.getCodigoDestino(),
+				cotacaoRequest.getDataIda(),
+				cotacaoRequest.getDataVolta(),
 				cotacaoRequest.getQuantidadePessoas(),
 				false,
 				"BRL",
 				MAX_RESULTS);
-		log.info("[finish] VooAmadeusInfraClientRest - buscarVoos");
 		return response;
 	}
 
